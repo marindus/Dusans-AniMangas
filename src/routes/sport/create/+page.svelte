@@ -1,7 +1,7 @@
 <svelte:options runes={true} />
 
 <script>
-    // gets all attributes from the forms and saves it
+    // gets the form actions response
     let { form } = $props();
 </script>
 

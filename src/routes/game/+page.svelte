@@ -3,9 +3,10 @@
 <script>
     let { data } = $props();
     let allQuotes = data.quotes;
+    // to check if startGame() was already called
     let initialized = false;
 
-    // State
+    // sets the state of the variables
     let usedIndexes = $state([]);
     let currentQuoteIndex = $state(-1);
     let options = $state([]);
@@ -16,7 +17,7 @@
     let jokerUsed = $state(false);
     let winner = $state(false);
 
-    // Startet oder resettet das Spiel
+    // starts or resets the game
     function startGame() {
         usedIndexes = [];
         score = 0;
@@ -27,62 +28,80 @@
         nextQuestion();
     }
 
-    // Erstellt die nächste Frage/Zitat
+    // creates the next quote
     function nextQuestion() {
+        //checks if all quotes where already used
         if (usedIndexes.length === allQuotes.length) {
-            // Alle Zitate durch, Gewinner!
+            // all quotes used = winner!
             winner = true;
             gameOver = true;
+            // checks if the new score is higher then the current highscore
             highscore = Math.max(highscore, score);
             return;
         }
 
+        // creates an array with all indexnumbers and deletes those that were already used
         const unused = allQuotes
             .map((_, i) => i)
             .filter((i) => !usedIndexes.includes(i));
+        // gets a random number from 0-1 multiplies it by the number of all quotes and rounds it down to the next number
         const randomIndex = unused[Math.floor(Math.random() * unused.length)];
         currentQuoteIndex = randomIndex;
+        // creates a new copy of the array with the additional index
         usedIndexes = [...usedIndexes, randomIndex];
 
+        // gets the corresponding name to the quote and creates an array with the correct name
         const correctName = allQuotes[randomIndex].name;
         const names = [correctName];
+
+        // gets all the wrong names
         let availableNames = allQuotes
             .map((q) => q.name)
             .filter((n) => n !== correctName);
 
+        // loops until the array names has 5 names
         while (names.length < 5 && availableNames.length > 0) {
             const pickIdx = Math.floor(Math.random() * availableNames.length);
             names.push(availableNames[pickIdx]);
             availableNames.splice(pickIdx, 1);
         }
 
+        // then the names are getting shuffled
         options = shuffle(names);
+        // disable joker at the beginning of every quote
         showJoker = false;
     }
 
-    // Mische-Helper
+    // Fisher-Yates algorithm for shuffle
     function shuffle(arr) {
+        // creates a copy of the arr and saves it in a
         const a = arr.slice();
+        // loops backwards from i = last element to the second element
         for (let i = a.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
+            // changes the values for i and j
             [a[i], a[j]] = [a[j], a[i]];
         }
+        // returns the new shuffled array
         return a;
     }
 
-    // Antwort auswerten
+    // when a user clicks on an answer
     function answer(name) {
+        // if the game is already over nothing happens
         if (gameOver) return;
+        // if it is the correct name add 1 point to score and go to the next question
         if (name === allQuotes[currentQuoteIndex].name) {
             score++;
             nextQuestion();
+        // if false answer gameOver and check if new highscore was achived
         } else {
             gameOver = true;
             highscore = Math.max(highscore, score);
         }
     }
 
-    // Joker verwenden
+    // use joker, checks if the joker was already used or not
     function useJoker() {
         if (!jokerUsed) {
             showJoker = true;
@@ -90,14 +109,14 @@
         }
     }
 
-    // Auswahl per Button
+    // when cklicked on button, checks if the name that was clicked is correct
     function selectName(event) {
         if (gameOver) return;
         const name = event.target.dataset.name;
         answer(name);
     }
 
-    // Beim Laden direkt Spiel starten
+    // starts if game was not started and if all quotes are available from the server-load
     $effect(() => {
         if (!initialized && allQuotes?.length) {
             startGame();
