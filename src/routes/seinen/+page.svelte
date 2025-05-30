@@ -12,7 +12,7 @@
   let ranked = [...entries].sort((a, b) => b.score - a.score);
 
   // const for all the quotes
-  let quotes = quotesData.map(q => `${q.name}: ${q.quote}`);
+  let quotes = quotesData.map((q) => `${q.name}: ${q.quote}`);
 
   // gets a random number from 0-1 multiplies it by the number of all quotes and rounds it down to the next number
   let currentQuote = $state(quotes[Math.floor(Math.random() * quotes.length)]);
@@ -31,7 +31,7 @@
   <div class="left">
     <a href="/seinen/create" class="add-button">Add AniManga</a>
   </div>
-  <div class="center-links">
+  <div class="center-left">
     <div class="quote">
       <em>{currentQuote}</em>
       <button class="refresh-button" onclick={shuffleQuote}>↻</button>
@@ -49,14 +49,14 @@
       <tr>
         <th>Rank</th>
         <th>Title</th>
-        <th>Typ</th>
-        <th>Status</th>
+        <th class="column-typ">Typ</th>
+        <th class="column-status">Status</th>
         <th>Score</th>
       </tr>
     </thead>
     <tbody>
       {#each ranked as animanga, i}
-        <AnimangaCard animanga={animanga} rank={i + 1} genre="seinen"/>
+        <AnimangaCard {animanga} rank={i + 1} genre="seinen" />
       {/each}
     </tbody>
   </table>
@@ -108,13 +108,28 @@
   }
 
   /* whole format of the header */
+  /* whole format of the header */
   .header {
-    background-color: #1a1a1a;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
     padding: 1rem 2rem;
+    background-color: #1a1a1a;
     color: white;
+    gap: 1rem;
+  }
+  .header .left {
+    justify-self: start;
+  }
+  .header .center-left {
+    justify-self: center;
+    text-align: center;
+  }
+  .header .right {
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   /* distance between profile-pricture and welcome luffy*/
@@ -149,5 +164,13 @@
     color: white;
     font-size: 1.2rem;
     cursor: pointer;
+  }
+
+  /* remove typ and status titles*/
+  @media (max-width: 768px) {
+    .column-typ,
+    .column-status {
+      display: none;
+    }
   }
 </style>

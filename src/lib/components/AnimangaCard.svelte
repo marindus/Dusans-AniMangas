@@ -16,10 +16,10 @@
       <div>Chapters: {animanga.chapters}</div>
     </div>
   </td>
-  <td>
+  <td class="type-cell">
     <span>{animanga.type}</span>
   </td>
-  <td>
+  <td class="status-cell">
     <span>{animanga.status}</span>
   </td>
   <td class="center-cell stars-cell">
@@ -79,7 +79,6 @@
   .stars-cell {
     padding-left: 0.2rem;
     padding-right: 0.2rem;
-    /* Ensure flex container for vertical centering */
   }
   .score-stars {
     display: flex;
@@ -114,4 +113,20 @@
     color: #555;
     opacity: 0.3;
   }
+
+/* making sure the rankings are still readable when small screen */
+@media (max-width: 768px) {
+  .type-cell,
+  .status-cell,
+  .star-icons {
+    display: none;
+  }
+
+  /* makes sure the title score is in the middle */
+  :global(.list-table th:nth-child(5)),
+  .stars-cell {
+    text-align: center;
+  }
+}
+
 </style>
