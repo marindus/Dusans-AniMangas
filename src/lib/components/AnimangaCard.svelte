@@ -115,7 +115,7 @@
   }
 
 /* making sure the rankings are still readable when small screen */
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .type-cell,
   .status-cell,
   .star-icons {
