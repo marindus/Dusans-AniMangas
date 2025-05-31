@@ -1,6 +1,7 @@
 <svelte:options runes={true} />
 
 <script>
+  // get props when CharacterCard is called
   let {
     normalSrc,
     hoverSrc,
@@ -19,6 +20,7 @@
 </a>
 
 <style>
+  /* design of the picture and genretext */
   .character-card {
     display: flex;
     flex-direction: column;
@@ -27,12 +29,14 @@
     text-decoration: none;
   }
 
+  /* container for the images */
   .hover-image-wrapper {
     position: relative;
     width: 160px;
     height: 250px;
   }
 
+  /* both pictures are exaytly over each other, smooth transition */
   .img {
     position: absolute;
     top: 0;
@@ -43,19 +47,21 @@
     object-fit: contain;
   }
 
+  /* hover is invisble */
   .img.hover {
     opacity: 0;
     z-index: 1;
   }
 
+  /* when you hover, then normal is invisble */
   .hover-image-wrapper:hover .img.hover {
     opacity: 1;
   }
-
   .hover-image-wrapper:hover .img.normal {
     opacity: 0;
   }
 
+  /* design genre text */
   .genre-label {
     margin-top: 0.75rem;
     color: white;

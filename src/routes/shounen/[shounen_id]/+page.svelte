@@ -98,11 +98,11 @@ h1 {
 }
 
 /* makes sure that the design is still nice and readable on smaller screens */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .detail-box { padding: 1.2rem; }
-  .detail-row { flex-direction: column; align-items: flex-start; gap: 1.7rem; }
+  .detail-row { flex-direction: column; align-items: center; gap: 1.7rem; }
   .cover { width: 220px; height: 220px; }
-  h1 { font-size: 2.1rem; text-align: left; }
-  .info { font-size: 1rem; align-items: flex-start; text-align: left; }
+  h1 { font-size: 2.1rem; text-align: center; }
+  .info { font-size: 1rem; align-items: flex-start; text-align: center; }
 }
 </style>

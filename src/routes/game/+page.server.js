@@ -1,9 +1,9 @@
 import db from "$lib/server/db.js";
 
 export async function load() {
-  // Holt ALLE Quotes
+  // gets all quotes
   const quotes = await db.getQuotes();
-  // Gebe nur name, quote, animanga und genre zurück
+  // gives back name, quote, animanga and genre
   return {
     quotes: quotes.map(q => ({
       name: q.name,

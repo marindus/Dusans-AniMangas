@@ -1,10 +1,15 @@
 <svelte:options runes={true} />
 
 <script>
+  // get props when AnimangaCard is called
   let { animanga, rank, genre } = $props();
 </script>
 
-<tr class="animanga-row">
+<!-- Making the whole animangarow clickable and the html-->
+<tr
+  class="animanga-row"
+  onclick={() => (window.location.href = `/${genre}/${animanga._id}`)}
+>
   <td class="rank">{rank}</td>
   <td class="title-cell">
     <img class="cover" src={animanga.image} alt={animanga.title} />
@@ -37,10 +42,12 @@
 </tr>
 
 <style>
+  /* design of each row in animanga */
   .animanga-row {
     border-bottom: 2px solid #444;
     height: 110px;
     vertical-align: middle;
+    cursor: pointer;
   }
   td {
     vertical-align: middle !important;
@@ -114,19 +121,17 @@
     opacity: 0.3;
   }
 
-/* making sure the rankings are still readable when small screen */
-@media (max-width: 1000px) {
-  .type-cell,
-  .status-cell,
-  .star-icons {
-    display: none;
+  /* making sure the rankings are still readable when small screen */
+  @media (max-width: 992px) {
+    .type-cell,
+    .status-cell,
+    .star-icons {
+      display: none;
+    }
+    /* makes sure the title score is in the middle */
+    :global(.list-table th:nth-child(5)),
+    .stars-cell {
+      text-align: center;
+    }
   }
-
-  /* makes sure the title score is in the middle */
-  :global(.list-table th:nth-child(5)),
-  .stars-cell {
-    text-align: center;
-  }
-}
-
 </style>

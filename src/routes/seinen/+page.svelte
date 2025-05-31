@@ -167,7 +167,7 @@
   }
 
   /* remove typ and status titles*/
-  @media (max-width: 1000px) {
+  @media (max-width: 992px) {
     .column-typ,
     .column-status {
       display: none;

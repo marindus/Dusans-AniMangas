@@ -128,27 +128,32 @@
 <div class="game-container">
     <h1 class="game-title">Quotes Game</h1>
 
+    <!-- Show then next block only when its not GameOver and a quote is loaded -->
     {#if !gameOver && currentQuoteIndex !== -1}
         <div class="score-row">
             <span>Score: {score}</span>
             <span class="highscore">Highscore: {highscore}</span>
             <button class="joker-btn" disabled={jokerUsed} onclick={useJoker}>
+                <!-- Checks what to write on button, if joker is used or not -->
                 Joker {jokerUsed ? '(used)' : ''}
             </button>
         </div>
 
+        <!-- quote box html -->
         <div class="quote-box">
             <span class="quote-mark">“</span>
             <span class="the-quote">{allQuotes[currentQuoteIndex].quote}</span>
             <span class="quote-mark">”</span>
         </div>
 
+        <!-- when joker is clicked -->
         {#if showJoker}
             <div class="joker-hint">
                 <b>Animanga:</b> {allQuotes[currentQuoteIndex].animanga}
             </div>
         {/if}
 
+        <!-- checks which name was clicked and sends it to selectName -->
         <div class="options-row">
             {#each options as name}
                 <button class="option-btn" data-name={name} onclick={selectName}>
@@ -157,7 +162,9 @@
             {/each}
         </div>
 
+    <!-- GameOver = true -->
     {:else}
+        <!-- Winner = true -->
         {#if winner}
             <div class="winner-box">
                 <h2 class="winner-text">WINNER WINNER CHICKEN DINNER!</h2>
@@ -170,6 +177,7 @@
                 </div>
             </div>
         {:else}
+        <!-- Winner = false -->
             <div class="gameover-box">
                 <h2>Game Over!</h2>
                 <div>Your Highscore: <b>{score}</b></div>
@@ -185,6 +193,7 @@
 </div>
 
 <style>
+    /* the box in the center */
     .game-container {
         max-width: 650px;
         margin: 4rem auto;
@@ -197,12 +206,16 @@
         flex-direction: column;
         align-items: center;
     }
+
+    /* title of the game */
     .game-title {
         font-size: 2.5rem;
         margin-bottom: 2rem;
         font-weight: 700;
         letter-spacing: 2px;
     }
+
+    /* score design for score, highscore and joker */
     .score-row {
         width: 100%;
         display: flex;
@@ -232,6 +245,8 @@
         color: #444;
         cursor: not-allowed;
     }
+
+    /* design of the quote */
     .quote-box {
         font-size: 1.45rem;
         font-style: italic;
@@ -256,6 +271,8 @@
         letter-spacing: 1px;
         font-size: 1.32rem;
     }
+
+    /* design of the names */
     .options-row {
         display: flex;
         flex-direction: column;
@@ -278,6 +295,8 @@
     .option-btn:hover {
         background: #2a7fff;
     }
+
+    /* design game over */
     .gameover-box {
         text-align: center;
         margin-top: 2.5rem;
@@ -287,6 +306,7 @@
         margin-bottom: 1.2rem;
         color: #ff5353;
     }
+    /* design for the buttons */
     .actions {
         margin-top: 1.8rem;
         display: flex;
@@ -320,6 +340,8 @@
     .end-btn:hover {
         background: #2d2d2d;
     }
+
+    /* hint text when joker is clicked */
     .joker-hint {
         margin: 1rem 0 0.8rem 0;
         color: #ffe87a;
@@ -330,6 +352,8 @@
         border-radius: 7px;
         display: inline-block;
     }
+
+    /* design winner */
     .winner-text {
         color: #4caf50;
         font-size: 2.2rem;
