@@ -16,7 +16,7 @@ async function getAnimangas() {
   try {
     const collection = db.collection("animangas");
 
-    // You can specify a query/filter here
+    // You can specify a query/filter here, we are getting all querys here
     // See https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/query-document/
     const query = {};
 
@@ -71,16 +71,8 @@ async function getAnimanga(id) {
 }
 
 // create animanga
-// Example movie object:
-/* 
-{ 
-  title: "Das Geheimnis von Altura",
-  year: 2024,
-  length: "120 Minuten"
-} 
-*/
 async function createAnimanga(animanga) {
-  // Optional: Standardwerte setzen
+  // if no attribute for a picture a set a placeholder gets set
   if (!animanga.image) animanga.image = "/images/placeholder.png";
 
   try {
